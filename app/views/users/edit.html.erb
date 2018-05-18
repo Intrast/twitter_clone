@@ -1,4 +1,4 @@
-<h1><center>Sign up</center></h1>
+<h1><center>Edit profile</center></h1>
 <%= form_for @user do |form| %>
   <p><%= @user.errors.full_messages.join('. ')%></p>
   <div class="form-group">
@@ -22,14 +22,8 @@
     <%= form.password_field :password, class: 'form-control' %>
   </div>
   <div class="form-group">
-    <%= form.label :password_confirmation %>
-    <br>
-    <%= form.password_field :password_confirmation, class: 'form-control'%>
-  </div>
-  <div class="form-group">
     <%= form.label :avatar %>
-    <%= form.file_field :avatar %>
+    <%= form.file_field :avatar%>
   </div>
-
-  <%= form.submit class: 'btn btn-success' %>
+  <%= form.submit 'Edit profile', class: 'btn btn-success' %>
 <% end %>

@@ -9,26 +9,25 @@
   </head>
 
   <body>
-
-      <div class="container-fluid">
-        <% if current_user.present? %>
-          <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container">
-              <div class="navbar-header">
-                <%= link_to 'Twitter Clone', root_path, class: 'navbar-brand'%>
-              </div>
-              <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right header-menu">
-                  <li><a href="/users"><i class="fa fa-users"></i><span>Users</span></a></li>
-                  <li><%= link_to 'Profile', profile_path, class: 'fa fa-user' %></li>
-                  <li><a href="/tweets"><i class="fa fa-comment"></i><span>All tweets</span></a></li>
-                  <li><a href="/users/nazar/edit"><i class="fa fa-cog"></i><span>Setting</span></a></li>
-                  <li><%= link_to 'Sign out', log_out_path, method:( :delete if current_user), class: 'fa fa-sign-out'%></li>
-                </ul>
-              </div>
+    <div class="container-fluid">
+      <% if current_user.present? %>
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <%= link_to 'Twitter Clone', root_path, class: 'navbar-brand'%>
             </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right header-menu">
+                <li><a href="/users"><i class="fa fa-users"></i><span>Users</span></a></li>
+                <li><%= link_to 'Profile', edit_user_path(current_user.id), class: 'fa fa-user' %></li>
+                <li><a href="/tweets"><i class="fa fa-comment"></i><span>All tweets</span></a></li>
+                <li><a href="/users/nazar/edit"><i class="fa fa-cog"></i><span>Setting</span></a></li>
+                <li><%= link_to 'Sign out', log_out_path, method:( :delete if current_user), class: 'fa fa-sign-out'%></li>
+              </ul>
             </div>
-        <% end %>
+          </div>
+        </div>
+      <% end %>
       <%= yield %>
     </div>
   </body>

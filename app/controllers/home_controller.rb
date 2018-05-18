@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
     @tweet = Tweet.new
-    @tweets = Tweet.all
+    @tweets = current_user.tweets
   end
 end
