@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="row">
+    <aside class="col-md-4">
+      <section>
+        <div class="profile clearfix">
+            <%= image_tag @user.avatar.url(:thumb), size: '70x70', class: 'gravatar' if @user.avatar? %>
+            <%=  default_avatar if @user.avatar.file.blank?%>
+          <div>
+            <%= @user.first_name%> <%= @user.last_name%>
+          </div>
+          <div>
+            <% if current_user.following?(@user) %>
+              <%= form_for(current_user.active_relationships.find_by(followed_id: @user.id),
+                         html: { method: :delete },
+                         remote: true) do |f| %>
+                  <%= f.submit "Unfollow", class: "btn" %>
+              <% end %>
+            <% else %>
+              <%= form_for(current_user.active_relationships.build, remote: true) do |f| %>
+                <div><%= hidden_field_tag :followed_id, @user.id %></div>
+                <%= f.submit "Follow", class: "btn btn-primary" %>
+              <% end %>
+
+            <% end %>
+
+
+
+          </div>
+        </div>
+        <div class="stats">
+          <table>
+            <tbody>
+              <tr>
+                <th>Tweets</th>
+                <th>Followings</th>
+                <th>Followers</th>
+              </tr>
+              <tr>
+                <td><%= @tweets.length%></td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </aside>
+    <div class="col-md-8">
+      <div class="timeline">
+        <h2 class="title">Tweets</h2>
+        <ol class="tweets">
+          <% @tweets.reverse_each do |tweets|%>
+              <li class="tweet clearfix" id="5">
+                <%= image_tag @user.avatar.url(:thumb), size: '70x70', class: 'gravatar' if @user.avatar?   %>
+                  <%=  default_avatar if @user.avatar.file.blank?%>
+                <div class="content">
+                  <div class="user">
+                    <%= @user.first_name %> <%= @user.last_name %>
+                  </div>
+                  <div class="tweet-content"><%= tweets.text %></div>
+                    <div class="tweet-footer">
+                      <posted> <%= time_ago_in_words(tweets.created_at)%></posted>
+                    </div>
+                  </div>
+              </li>
+          <% end %>
+        </ol>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>

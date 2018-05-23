@@ -3,14 +3,10 @@
     <aside class="col-md-4">
       <section>
         <div class="profile clearfix">
-          <% if current_user.avatar.url %>
-            <%= image_tag(current_user.avatar.url) %>
-          <% end %>
-          <a href="/users/nazar">
-            <img alt="Nazar Taran" class="gravatar" src="https://secure.gravatar.com/avatar/307a99b1eff78a2ca24d7c4097712f75?s=52">
-          </a>
+          <%= image_tag current_user.avatar.url(:thumb), size: '70x70', class: 'gravatar' if current_user.avatar?   %>
+            <%=  default_avatar if current_user.avatar.file.blank?%>
           <div>
-            <a href="/users/nazar"><%= current_user.first_name%> <%=current_user.last_name%></a>
+            <%= current_user.first_name%> <%=current_user.last_name%>
           </div>
           <div><%= current_user.email%></div>
         </div>
@@ -23,9 +19,9 @@
                 <th>Followers</th>
               </tr>
               <tr>
-                <td><a href="/users/nazar"><%= @tweets.length%></a></td>
-                <td><a href="/users/nazar/following">0</a></td>
-                <td><a href="/users/nazar/followers">0</a></td>
+                <td><%= @tweets.length%></td>
+                <td></td>
+                <td></td>
               </tr>
             </tbody>
           </table>
@@ -44,10 +40,11 @@
         <ol class="tweets">
           <% @tweets.reverse_each do |tweets|%>
               <li class="tweet clearfix" id="5">
-                <a href="/users/nazar"><img alt="Nazar Taran" class="gravatar" src="https://secure.gravatar.com/avatar/307a99b1eff78a2ca24d7c4097712f75?s=50"></a>
+                <%= image_tag current_user.avatar.url(:thumb), size: '70x70', class: 'gravatar' if current_user.avatar?   %>
+                  <%=  default_avatar if current_user.avatar.file.blank?%>
                 <div class="content">
                   <div class="user">
-                    <a href="/users/nazar"><%= current_user.first_name%> <%=current_user.last_name%></a>
+                    <%= current_user.first_name%> <%=current_user.last_name%>
                   </div>
                   <div class="tweet-content"><%= tweets.text%></div>
                     <div class="tweet-footer">

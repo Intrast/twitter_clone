@@ -4,8 +4,14 @@ Rails.application.routes.draw do
   get 'sing_up' => 'users#new'
   delete 'delete' => 'tweets#destroy'
 
-  resources :users, only: [:new, :create, :edit, :update]
+  resources :users do
+    member do
+      get :followers, :followed
+    end
+  end
   resources :tweets
   resources :sessions, only: [:new, :create, :destroy]
+  resources :relationships, only: [:create, :destroy]
+
   root 'home#index'
 end

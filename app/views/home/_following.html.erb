@@ -1,0 +1,4 @@
+<% @user ||= current_user %>
+  <strong id="following" class="stat">
+    <%= @user.following.count %>
+  </strong>

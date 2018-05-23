@@ -1,0 +1,23 @@
+<h1><center>All tweets</center></h1>
+
+<div class="timeline">
+  <ol class="tweets">
+    <% @tweets.reverse_each do |tweets|%>
+     <% @user = User.find(tweets.user_id) %>
+        <li class="tweet clearfix" id="5">
+          <%= image_tag @user.avatar.url(:thumb), size: '70x70', class: 'gravatar' if @user.avatar?   %>
+            <%=  default_avatar if @user.avatar.file.blank?%>
+          <div class="content">
+            <div class="user">
+              <%= @user.first_name%> <%= @user.last_name %>
+            </div>
+            <div class="tweet-content"><%= tweets.text%></div>
+              <div class="tweet-footer">
+                <posted> <%= time_ago_in_words(tweets.created_at)%></posted>
+              </div>
+            </div>
+        </li>
+    <% end %>
+  </ol>
+  <hr>
+</div>
