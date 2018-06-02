@@ -14,6 +14,10 @@ class User < ApplicationRecord
   validates :first_name, :last_name, presence: true
   validates_confirmation_of :password, on: :create
 
+ def name_three_times
+   first_name * 3
+ end
+
   def following?(user)
     followings.find_by(id: user.id).present?
   end
@@ -23,6 +27,14 @@ class User < ApplicationRecord
   end
 
   def unfollow(user)
-    followings.delete(followed: user)
+    followings.destroy(user)
   end
+
+  # def self.search(search)
+  #   if search
+  #     find(:all, :conditions => ['name LIKE ?', "%#{search}%"])
+  #   else
+  #     find(all)
+  #   end
+  # end
 end

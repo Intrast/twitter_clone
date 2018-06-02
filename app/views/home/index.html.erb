@@ -19,9 +19,9 @@
                 <th>Followers</th>
               </tr>
               <tr>
-                <td><%= @tweets.length%></td>
-                <td></td>
-                <td></td>
+                <td><%= @tweets.length %></td>
+                <td><%= render 'following' %></td>
+                <td><%= render 'followers' %></td>
               </tr>
             </tbody>
           </table>
@@ -38,23 +38,26 @@
       <div class="timeline">
         <h2 class="title">Tweets</h2>
         <ol class="tweets">
-          <% @tweets.reverse_each do |tweets|%>
+
+          <% @users.each do |user| %>
+            <% if current_user.following?(user) %>
+            <% user.tweets.reverse_each do |tweets|%>
               <li class="tweet clearfix" id="5">
-                <%= image_tag current_user.avatar.url(:thumb), size: '70x70', class: 'gravatar' if current_user.avatar?   %>
-                  <%=  default_avatar if current_user.avatar.file.blank?%>
+                <%= image_tag user.avatar.url(:thumb), size: '70x70', class: 'gravatar' if user.avatar?   %>
+                  <%=  default_avatar if user.avatar.file.blank?%>
                 <div class="content">
                   <div class="user">
-                    <%= current_user.first_name%> <%=current_user.last_name%>
+                    <%= user.first_name%> <%= user.last_name %>
                   </div>
                   <div class="tweet-content"><%= tweets.text%></div>
                     <div class="tweet-footer">
                       <posted> <%= time_ago_in_words(tweets.created_at)%></posted>
-                        <div class="tweet-actions">
-                          <%= link_to 'delete', tweets, :method => :delete, data: {confirm: "You sure?"}  %>
-                        </div>
+                    
                     </div>
                   </div>
               </li>
+              <%end%>
+            <% end %>
           <% end %>
         </ol>
         <hr>

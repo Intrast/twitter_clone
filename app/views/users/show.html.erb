@@ -10,21 +10,15 @@
           </div>
           <div>
             <% if current_user.following?(@user) %>
-              <%= form_for(current_user.active_relationships.find_by(followed_id: @user.id),
-                         html: { method: :delete },
-                         remote: true) do |f| %>
-                  <%= f.submit "Unfollow", class: "btn" %>
+              <%= form_for(current_user.active_relationships.find_by(followed_id: @user.id), method: :delete ) do |f| %>
+                <%= f.submit "Unfollow", class: "btn btn-primary" %>
               <% end %>
             <% else %>
-              <%= form_for(current_user.active_relationships.build, remote: true) do |f| %>
+              <%= form_for(current_user.active_relationships.build) do |f| %>
                 <div><%= hidden_field_tag :followed_id, @user.id %></div>
                 <%= f.submit "Follow", class: "btn btn-primary" %>
               <% end %>
-
             <% end %>
-
-
-
           </div>
         </div>
         <div class="stats">
@@ -37,8 +31,8 @@
               </tr>
               <tr>
                 <td><%= @tweets.length%></td>
-                <td>0</td>
-                <td>0</td>
+                <td><%= render 'home/following' %></td>
+                <td><%= render 'home/followers' %></td>
               </tr>
             </tbody>
           </table>

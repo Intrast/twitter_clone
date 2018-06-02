@@ -1,7 +1,7 @@
 class TweetsController < ApplicationController
   def index
     @tweets = Tweet.all
-    
+
   end
 
   def create
@@ -15,7 +15,7 @@ end
   def destroy
     @tweet= Tweet.find_by(id: params[:id])
     @tweet.destroy
-    redirect_to root_path
+    redirect_to tweets_path
   end
 
   private

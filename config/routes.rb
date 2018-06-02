@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   delete 'log_out' => 'sessions#destroy'
   get 'sing_up' => 'users#new'
   delete 'delete' => 'tweets#destroy'
+  
 
   resources :users do
     member do

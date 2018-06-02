@@ -1,4 +1,12 @@
 <h1><center>All users</center></h1>
+<div>
+  <%= form_tag users_path, :method => 'get'  do %>
+    <p>
+      <%= text_field_tag :search, params[:search] %>
+      <%= submit_tag "Search", :name => nil %>
+    </p>
+  <% end %>
+</div>
 <div class="profile clearfix">
   <%=   image_tag current_user.avatar.url(:small), size: '70x70', class: 'gravatar' if current_user.avatar.file.present?%>
   <%=  default_avatar if current_user.avatar.file.blank?%>
@@ -15,7 +23,7 @@
           <div>
             <%= user.first_name %> <%= user.last_name %></a>
           </div>
-          <%= link_to 'Profile', user_path(user,), class: 'btn btn-primary' %>
+          <%= link_to 'Profile', user_path(user), class: 'btn btn-primary' %>
         </div>
         <% end %>
 <% end %>

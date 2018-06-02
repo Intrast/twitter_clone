@@ -14,6 +14,11 @@
             <div class="tweet-content"><%= tweets.text%></div>
               <div class="tweet-footer">
                 <posted> <%= time_ago_in_words(tweets.created_at)%></posted>
+                <% if tweets.user_id == current_user.id  %>
+                  <div class="tweet-actions">
+                    <%= link_to 'delete', tweets, :method => :delete, data: {confirm: "You sure?"}  %>
+                  </div>
+                  <% end %>
               </div>
             </div>
         </li>
