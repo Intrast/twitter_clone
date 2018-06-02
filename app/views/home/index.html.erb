@@ -19,7 +19,7 @@
                 <th>Followers</th>
               </tr>
               <tr>
-                <td><%= @tweets.length %></td>
+                <td><%= current_user.tweets.length %></td>
                 <td><%= render 'following' %></td>
                 <td><%= render 'followers' %></td>
               </tr>
@@ -38,28 +38,24 @@
       <div class="timeline">
         <h2 class="title">Tweets</h2>
         <ol class="tweets">
-
-          <% @users.each do |user| %>
-            <% if current_user.following?(user) %>
-            <% user.tweets.reverse_each do |tweets|%>
-              <li class="tweet clearfix" id="5">
-                <%= image_tag user.avatar.url(:thumb), size: '70x70', class: 'gravatar' if user.avatar?   %>
-                  <%=  default_avatar if user.avatar.file.blank?%>
-                <div class="content">
-                  <div class="user">
-                    <%= user.first_name%> <%= user.last_name %>
-                  </div>
-                  <div class="tweet-content"><%= tweets.text%></div>
-                    <div class="tweet-footer">
-                      <posted> <%= time_ago_in_words(tweets.created_at)%></posted>
-                    
+            <% @tweets.each do |tweets|%>
+              <% @user = User.find(tweets.user_id) %>
+                <li class="tweet clearfix" id="5">
+                  <%= image_tag @user.avatar.url(:thumb), size: '70x70', class: 'gravatar' if @user.avatar?   %>
+                  <%= default_avatar if @user.avatar.file.blank?%>
+                    <div class="content">
+                      <div class="user">
+                        <%= @user.first_name%> <%= @user.last_name %>
+                      </div>
+                      <div class="tweet-content"><%= tweets.text%></div>
+                      <div class="tweet-footer">
+                        <posted> <%= time_ago_in_words(tweets.created_at)%></posted>
+                      </div>
                     </div>
-                  </div>
-              </li>
-              <%end%>
-            <% end %>
-          <% end %>
+                </li>
+            <%end%>
         </ol>
+        <%= will_paginate @tweets, inner_window:1, outer_window:1, renderer: BootstrapPagination::Rails %>
         <hr>
       </div>
     </div>

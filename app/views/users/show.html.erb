@@ -43,7 +43,7 @@
       <div class="timeline">
         <h2 class="title">Tweets</h2>
         <ol class="tweets">
-          <% @tweets.reverse_each do |tweets|%>
+          <% @tweets.each do |tweets|%>
               <li class="tweet clearfix" id="5">
                 <%= image_tag @user.avatar.url(:thumb), size: '70x70', class: 'gravatar' if @user.avatar?   %>
                   <%=  default_avatar if @user.avatar.file.blank?%>
@@ -59,6 +59,7 @@
               </li>
           <% end %>
         </ol>
+        <%= will_paginate @tweets, inner_window:1, outer_window:1, renderer: BootstrapPagination::Rails %>
         <hr>
       </div>
     </div>
