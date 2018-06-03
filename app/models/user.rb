@@ -8,15 +8,10 @@ class User < ApplicationRecord
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
-
   mount_uploader :avatar, AvatarUploader
   validates :email, format: { with: VALID_EMAIL_REGEX, on: :create }, presence: true
   validates :first_name, :last_name, presence: true
   validates_confirmation_of :password, on: :create
-
- def name_three_times
-   first_name * 3
- end
 
   def following?(user)
     followings.find_by(id: user.id).present?
@@ -29,12 +24,4 @@ class User < ApplicationRecord
   def unfollow(user)
     followings.destroy(user)
   end
-
-  # def self.search(search)
-  #   if search
-  #     find(:all, :conditions => ['name LIKE ?', "%#{search}%"])
-  #   else
-  #     find(all)
-  #   end
-  # end
 end

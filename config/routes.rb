@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   get 'sing_up' => 'users#new'
   delete 'delete' => 'tweets#destroy'
   
-
   resources :users do
     member do
       get :followers, :followed

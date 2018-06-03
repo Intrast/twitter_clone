@@ -1,21 +1,21 @@
 <h1><center>All users</center></h1>
 
 <div class="profile clearfix">
-  <%=   image_tag current_user.avatar.url(:small), size: '70x70', class: 'gravatar' if current_user.avatar.file.present?%>
-  <%=  default_avatar if current_user.avatar.file.blank?%>
+  <%= image_tag current_user.avatar.url(:small), size: '70x70', class: 'gravatar' if current_user.avatar.file.present? %>
+  <%= default_avatar if current_user.avatar.file.blank? %>
   <div>
     <%= current_user.first_name %> <%= current_user.last_name %></a>
   </div>
 </div>
 <% @users.each do |user| %>
   <% if user.id != current_user.id %>
-        <div class="profile clearfix">
+    <div class="profile clearfix">
       <%=  image_tag user.avatar.url(:small), size: '70x70', class: 'gravatar' if user.avatar.file.present?  %>
-      <%=  default_avatar if user.avatar.file.blank?%>
-          <div>
-            <%= user.first_name %> <%= user.last_name %></a>
-          </div>
-          <%= link_to 'Profile', user_path(user), class: 'btn btn-primary' %>
+      <%=  default_avatar if user.avatar.file.blank? %>
+        <div>
+          <%= user.first_name %> <%= user.last_name %></a>
         </div>
-        <% end %>
+      <%= link_to 'Profile', user_path(user), class: 'btn btn-primary' %>
+    </div>
+  <% end %>
 <% end %>
